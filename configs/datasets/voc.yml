@@ -4,18 +4,18 @@ num_classes: 20
 
 TrainDataset:
   name: VOCDataSet
-  dataset_dir: dataset/voc
-  anno_path: trainval.txt
+  dataset_dir: ./data/DatasetVocSASU_ForIcarM2023
+  anno_path: train.txt
   label_list: label_list.txt
   data_fields: ['image', 'gt_bbox', 'gt_class', 'difficult']
 
 EvalDataset:
   name: VOCDataSet
-  dataset_dir: dataset/voc
-  anno_path: test.txt
+  dataset_dir: ./data/DatasetVocSASU_ForIcarM2023
+  anno_path: val.txt
   label_list: label_list.txt
   data_fields: ['image', 'gt_bbox', 'gt_class', 'difficult']
 
 TestDataset:
   name: ImageFolder
-  anno_path: dataset/voc/label_list.txt
+  anno_path: ./data/DatasetVocSASU_ForIcarM2023/trainval.txt

@@ -115,6 +115,7 @@ class Trainer(object):
             self.model = self.cfg.model
             self.is_loaded_weights = True
 
+        # 初始化参数
         if cfg.architecture == 'YOLOX':
             for k, m in self.model.named_sublayers():
                 if isinstance(m, nn.BatchNorm2D):

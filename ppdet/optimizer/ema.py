@@ -29,6 +29,17 @@ __all__ = ['ModelEMA', 'SimpleModelEMA']
 class ModelEMA(object):
     """
     Exponential Weighted Average for Deep Neutal Networks
+
+    指数加权平均）是一种常用的时间序列数据平滑方法，它可以对数据进行平滑处理，以便更好地分析和预测。作用包括：
+
+    1、平滑时间序列数据：指数加权平均可以去除数据中的噪声和异常值，使数据更平滑，更容易分析和预测。
+
+    2、求解移动平均：指数加权平均可以对数据进行移动平均计算，从而更好地反映数据的趋势和变化。
+
+    3、模拟滤波器：指数加权平均可以用作数字滤波器，对信号进行滤波处理，从而去除噪声和干扰，提高信号的质量。
+
+    4、优化算法：指数加权平均可以用于优化算法中的权重更新，如梯度下降算法中的参数更新，可以使算法更快地收敛并提高预测准确率。
+
     Args:
         model (nn.Layer): Detector of model.
         decay (int):  The decay used for updating ema parameter.
@@ -65,7 +76,7 @@ class ModelEMA(object):
             if k in self.ema_black_list:
                 self.state_dict[k] = v
             else:
-                self.state_dict[k] = paddle.zeros_like(v)
+                self.state_dict[k] = paddle.zeros_like(v)  # 返回大小、数据格式不变的全0矩阵
 
         bn_states_names = get_bn_running_state_names(model)
         if ema_filter_no_grad:

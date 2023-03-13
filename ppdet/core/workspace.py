@@ -158,7 +158,7 @@ def merge_config(config, another_cfg=None):
     Returns: global config
     """
     global global_config
-    dct = another_cfg or global_config
+    dct = another_cfg or global_config    # dct (AttrDict)
     return dict_merge(dct, config)
 
 
@@ -210,6 +210,7 @@ def register(cls):
 def create(cls_or_name, **kwargs):
     """
     Create an instance of given module class.
+    创建给定模块的实例
 
     Args:
         cls_or_name (type or str): Class of which to create instance.
@@ -219,6 +220,8 @@ def create(cls_or_name, **kwargs):
     assert type(cls_or_name) in [type, str
                                  ], "should be a class or name of a class"
     name = type(cls_or_name) == str and cls_or_name or cls_or_name.__name__
+    # name = cls_or_name.name if isinstance(cls_or_name, str) else cls_or_name.__name__ (类名)
+
     if name in global_config:
         if isinstance(global_config[name], SchemaDict):
             pass
@@ -236,6 +239,7 @@ def create(cls_or_name, **kwargs):
     cls_kwargs.update(global_config[name])
 
     # parse `shared` annoation of registered modules
+    # 检测传入的生成实例是否包含已经注册的模型
     if getattr(config, 'shared', None):
         for k in config.shared:
             target_key = config[k]
@@ -255,6 +259,7 @@ def create(cls_or_name, **kwargs):
         cls_kwargs.update(cls.from_config(config, **kwargs))
 
     if getattr(config, 'inject', None):
+        # 判断是否包含依赖注入(解耦合)
         for k in config.inject:
             target_key = config[k]
             # optional dependency

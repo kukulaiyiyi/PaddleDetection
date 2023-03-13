@@ -33,7 +33,7 @@ def init_fleet_env(find_unused_parameters=False):
 
 
 def init_parallel_env():
-    env = os.environ
+    env = os.environ  # os.environ 用于读取、设置或删除环境变量
     dist = 'PADDLE_TRAINER_ID' in env and 'PADDLE_TRAINERS_NUM' in env
     if dist:
         trainer_id = int(env['PADDLE_TRAINER_ID'])

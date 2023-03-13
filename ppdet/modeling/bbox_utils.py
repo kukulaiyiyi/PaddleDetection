@@ -570,6 +570,7 @@ def batch_distance2bbox(points, distance, max_shapes=None):
     """
     lt, rb = paddle.split(distance, 2, -1)
     # while tensor add parameters, parameters should be better placed on the second place
+    # points = paddle.elementwise_add(lt, points)
     x1y1 = -lt + points
     x2y2 = rb + points
     out_bbox = paddle.concat([x1y1, x2y2], -1)
