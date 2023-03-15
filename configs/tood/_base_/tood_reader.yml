@@ -1,4 +1,4 @@
-worker_num: 4
+worker_num: 2
 TrainReader:
   sample_transforms:
     - Decode: {}
@@ -9,7 +9,7 @@ TrainReader:
   batch_transforms:
     - PadBatch: {pad_to_stride: 32}
     - PadGT: {}
-  batch_size: 4
+  batch_size: 16
   shuffle: true
   drop_last: true
   collate_batch: true

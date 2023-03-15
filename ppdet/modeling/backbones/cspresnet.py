@@ -299,6 +299,7 @@ class CSPResNet(nn.Layer):
 
     def forward(self, inputs):
         x = inputs['image']
+
         x = self.stem(x)
         outs = []
         for idx, stage in enumerate(self.stages):

@@ -39,7 +39,7 @@ def setup_logger(name="ppdet", output=None):
     if name in logger_initialized:
         return logger
 
-    logger.setLevel(logging.INFO)
+    logger.setLevel(logging.INFO)   # 设置日志器将会处理的日志INFO及以上级别的消息
     logger.propagate = False
 
     formatter = logging.Formatter(
@@ -48,8 +48,11 @@ def setup_logger(name="ppdet", output=None):
     # stdout logging: master only
     local_rank = dist.get_rank()
     if local_rank == 0:
+        # 将日志消息发送到输出到Stream，如std.out, std.err或任何file-like对象
         ch = logging.StreamHandler(stream=sys.stdout)
+        # 设置handler将会处理的日志消息的最低严重级别
         ch.setLevel(logging.DEBUG)
+        # 为handler设置一个格式器对象
         ch.setFormatter(formatter)
         logger.addHandler(ch)
 
@@ -62,6 +65,7 @@ def setup_logger(name="ppdet", output=None):
         if local_rank > 0:
             filename = filename + ".rank{}".format(local_rank)
         os.makedirs(os.path.dirname(filename))
+        # 将日志消息发送到磁盘文件，默认情况下文件大小会无限增长
         fh = logging.FileHandler(filename, mode='a')
         fh.setLevel(logging.DEBUG)
         fh.setFormatter(logging.Formatter())
